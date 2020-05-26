@@ -18,6 +18,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../styles/common.scss';
 .lea-icon{
   width: 1.2em;
   height: 1.2em;

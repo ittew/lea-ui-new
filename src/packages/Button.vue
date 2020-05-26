@@ -1,7 +1,8 @@
 <template>
-  <button class="lea-button" :class="btnClass">
-    <lea-icon :name="icon" class="icon" v-if="icon" />
-    <span v-if="$slots.default">
+  <button class="lea-button" :class="btnClass" @click="$emit('click')">
+    <lea-icon :name="icon" class="icon" v-if="icon && !loading" />
+    <lea-icon name="loading" class="icon loading" v-if="loading" />
+    <span v-if="$slots.default" class="content">
       <slot />
     </span>
   </button>
@@ -24,12 +25,28 @@ export default {
     },
     icon: {
       type: String
+    },
+    iconPosition: {
+      type: String,
+      default: 'left',
+      validator (value) {
+        if (value && !['left', 'right'].includes(value)) {
+          console.warn('iconPosition的属性必须为left或right')
+        } else {
+          return true
+        }
+      }
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     btnClass () {
       const classes = []
       this.type && classes.push(`lea-button-${this.type}`)
+      this.iconPosition && this.icon && classes.push(`lea-button-${this.iconPosition}`)
       return classes
     }
   }
@@ -56,7 +73,9 @@ $active-color: #3a8ee6;
   padding: 12px 20px;
   display: inline-flex;
   justify-content: center;
+  align-items: center;
   vertical-align: middle;
+  outline:none;
   &:hover{
     border-color:$border-color;
     background:$background;
@@ -66,7 +85,6 @@ $active-color: #3a8ee6;
     color:$active-color;
     border:1px solid $active-color;
     background-color:$background;
-    outline:none
   }
   @each $type,$color in(
     primary:$primary,
@@ -112,7 +130,23 @@ $active-color: #3a8ee6;
     }
   }
   .icon{
-    vertical-align: middle;
+    margin-right: .15em;
   }
+  &-right{
+    .icon{
+      order: 2;
+      margin:0 0 0 .2em;
+    }
+    .content{
+      order: 1;
+    }
+  }
+}
+.loading{
+  animation: spin 2s infinite linear;
+}
+@keyframes spin{
+  0% { transform: rotate(0deg)}
+  100% { transform: rotate(360deg)}
 }
 </style>

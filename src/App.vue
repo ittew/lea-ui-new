@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h3>带Icon按钮</h3>
+    <h3>普通按钮</h3>
     <lea-button>默认按钮</lea-button>
     <lea-button type="primary">主要按钮</lea-button>
     <lea-button type="success">成功按钮</lea-button>
@@ -8,7 +8,10 @@
     <lea-button type="warning">警告按钮</lea-button>
     <lea-button type="danger">危险按钮</lea-button>
     <h3>带Icon按钮</h3>
+    <lea-button type="success" icon="sousuo" icon-position="right">搜索</lea-button>
     <lea-button type="success" icon="sousuo">搜索</lea-button>
+    <h3>加载中按钮</h3>
+    <lea-button type="success" :loading="isLoading" @click="isLoading=!isLoading">加载中</lea-button>
     <h3>按钮组</h3>
     <lea-button-group />
     <h3>Icon</h3>
@@ -21,7 +24,12 @@
 <script>
 
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      isLoading: true
+    }
+  }
 }
 </script>
 
