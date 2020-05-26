@@ -1,28 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <lea-button>默认按钮</lea-button>
+    <lea-button type="primary">主要按钮</lea-button>
+    <lea-button type="info">成功按钮</lea-button>
+    <lea-button type="success">信息按钮</lea-button>
+    <lea-button type="warning">警告按钮</lea-button>
+    <lea-button type="danger">危险按钮</lea-button>
+    <lea-button-group />
+    <lea-icon />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  name: 'App'
 }
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
