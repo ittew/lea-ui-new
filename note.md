@@ -36,3 +36,14 @@ export default {
 * karma 为前端自动化测提供跨浏览器测试的工具， 可以在浏览器中执行测试用例
 * Mocha chai sinon
 * Jest jsdom 不能再浏览器中测试
+
+## button组件
+* 内容 slot
+* 传入icon 是否显示icon
+* icon位置 display:flex  order属性调换顺序
+* 将svg写成icon组件
+* 添加loading及动画
+* 给lea-button添加事件 `@click="$emit('click')"`
+* button-group slot
+* 按钮组border问题 margin-left：-1px
+* 按钮组元素检查

@@ -46,7 +46,7 @@ export default {
     btnClass () {
       const classes = []
       this.type && classes.push(`lea-button-${this.type}`)
-      this.iconPosition && this.icon && classes.push(`lea-button-${this.iconPosition}`)
+      this.iconPosition && this.iconPosition !== 'left' && classes.push(`icon-${this.iconPosition}`)
       return classes
     }
   }
@@ -130,9 +130,9 @@ $active-color: #3a8ee6;
     }
   }
   .icon{
-    margin-right: .15em;
+    margin-right: .2em;
   }
-  &-right{
+  &.icon-right{
     .icon{
       order: 2;
       margin:0 0 0 .2em;

@@ -12,8 +12,19 @@
     <lea-button type="success" icon="edit">搜索</lea-button>
     <h3>加载中按钮</h3>
     <lea-button type="success" :loading="isLoading" @click="isLoading=!isLoading">加载中</lea-button>
+    <lea-button type="success" icon-position="right" :loading="isLoading" @click="isLoading=!isLoading">加载中</lea-button>
     <h3>按钮组</h3>
-    <lea-button-group />
+    <lea-button-group>
+      <lea-button type="primary" icon="left">上一页</lea-button>
+      <lea-button type="primary">更多</lea-button>
+      <lea-button type="primary" icon="right" icon-position="right">下一页</lea-button>
+    </lea-button-group>
+    <br>
+    <br>
+    <lea-button-group>
+      <lea-button type="primary" icon="left">上一页</lea-button>
+      <lea-button type="primary" icon="right" icon-position="right">下一页</lea-button>
+    </lea-button-group>
     <h3>Icon</h3>
     <lea-icon name="eye" />
     <lea-icon name="loading" />
