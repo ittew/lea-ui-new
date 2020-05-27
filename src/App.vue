@@ -10,6 +10,9 @@
     <h3>带Icon按钮</h3>
     <lea-button type="success" icon="edit" icon-position="right">搜索</lea-button>
     <lea-button type="success" icon="edit">搜索</lea-button>
+    <h3>Icon按钮</h3>
+    <lea-button type="primary" icon="edit" icon-position="right"></lea-button>
+    <lea-button type="primary" icon="edit"></lea-button>
     <h3>加载中按钮</h3>
     <lea-button type="success" :loading="isLoading" @click="isLoading=!isLoading">加载中</lea-button>
     <lea-button type="success" icon-position="right" :loading="isLoading" @click="isLoading=!isLoading">加载中</lea-button>
