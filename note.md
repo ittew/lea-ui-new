@@ -37,6 +37,39 @@ export default {
 * Mocha chai sinon
 * Jest jsdom 不能再浏览器中测试
 
+## karma 测试
+* 安装 npm install -D @vue/test-utils karma karma-chai karma-chrome-launcher karma-mocha karma-sourcemap-loader karma-spec-reporter karma-webpack mocha
+* 新建 karma.conf.j文件
+```js
+var webpackConfig = require('@vue/cli-service/webpack.config')
+
+module.exports = function(config) {
+  config.set({
+    frameworks: ['mocha'],
+    files: ['tests/**/*.spec.js'], //需要加载到浏览器的文件列表
+    preprocessors: { //在浏览器使用之前处理匹配的文件
+      '**/*.spec.js': ['webpack', 'sourcemap']
+    },
+    autoWatch: true, //启用自动检测文件变化进行测试
+    webpack: webpackConfig,
+    reporters: ['spec'],
+    browsers: ['ChromeHeadless'] //测试启动的浏览器
+  })
+}
+```
+* 在test/unit下 编写测试文件 button.spec.js
+```js
+import { expect } from 'chai'
+describe('Button.vue', () => { // 划分作用域
+  it('1+1是否等于2', () => {
+    expect(1+1).to.eq(2)
+  })
+})
+```
+* 在package.json中添加 script  test:'karma start'
+* 测试是否成功 npm run test 出现 Button.vue √ 1+1是否等于2 对勾则说明成功
+
+
 ## button组件
 * 内容 slot
 * 传入icon 是否显示icon
