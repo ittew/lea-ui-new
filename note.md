@@ -143,3 +143,303 @@ describe('Button.vue', () => { // 划分作用域
 * button-group slot
 * 按钮组border问题 margin-left：-1px
 * 按钮组元素检查
+
+
+## 使用 VuePress 
+1. 安装 `npm install vuepress -D`
+2. 新建 vue-press npm init -y 初始化 package.json 配置scripts
+```js
+{
+  "docs:dev": "vuepress dev docs",
+  "docs:build": "vuepress build docs"
+}
+```
+3. 初始化docs vue-press/docs/README.MD
+新建docs文件夹，在docs下增加入口页面README.MD
+```
+---
+home: true
+actionText: 欢迎 →
+actionLink: /components/button
+features:
+- title: 搭建自己的组件库
+  details: 从0搭建自己的组件库
+---
+```
+4. 配置导航 新建 .vuepress文件夹
+新建 .vuepress/config.js
+```js
+module.exports = {
+  title: 'lea-ui', // 设置网站标题
+  description: 'ui 库', //描述
+  dest: './build', // 设置输出目录
+  port: 1234, //端口
+  themeConfig: { //主题配置
+    nav: [{
+        text: '主页',
+        link: '/'
+      } // 导航条
+    ],
+    // 为以下路由添加侧边栏
+    sidebar: {
+      '/components/': [{
+          collapsable: true,
+          children: ['button']
+        }
+      ]
+    }
+  }
+}
+```
+5. 初始化配置文件 
+新建 .vuepress/enhanceApp.js
+安装  npm install element-ui highlight.js node-sass sass-loder -S
+```js
+import Vue from 'vue';
+import Element from 'element-ui'; // 引入elementUi
+import 'element-ui/lib/theme-chalk/index.css'
+
+import hljs from 'highlight.js'
+import 'highlight.js/styles/googlecode.css' //样式文件
+
+import Button from '../../../src/packages/Button'
+import Icon from '../../../src/packages/Icon'
+Vue.component(Button.name,Button)
+Vue.component(Icon.name,Icon)
+Vue.directive('highlight',function (el) {
+  let blocks = el.querySelectorAll('pre code');
+  blocks.forEach((block)=>{
+    hljs.highlightBlock(block)
+  })
+})
+export default ({
+  Vue
+}) => {
+  Vue.use(Element);
+}
+```
+6. 覆盖默认样式 新建样式文件 styles/palette.styl
+```
+$codeBgColor = #fafafa // 代码背景颜色
+
+$accentColor = #3eaf7c
+$textColor = #2c3e50
+
+$borderColor = #eaecef
+$arrowBgColor = #ccc
+$badgeTipColor = #42b983
+$badgeWarningColor = darken(#ffe564, 35%)
+$badgeErrorColor = #DA5961
+
+.content pre{  margin: 0!important;}
+
+.theme-default-content:not(.custom){
+  max-width: 1000px !important;
+}
+```
+7. 创建 .vuepress/components/
+创建button展示组件 test1 test2 test3
+```
+<template>
+  <div>
+      <zf-button>默认按钮</zf-button>
+      <zf-button type="primary">主要按钮</zf-button>
+      <zf-button type="success">成功按钮</zf-button>
+      <zf-button type="info">信息按钮</zf-button>
+      <zf-button type="warning">警告按钮</zf-button>
+      <zf-button type="danger">危险按钮</zf-button>
+  </div>
+</template>
+```
+创建demo-block可收缩代码块
+```
+<template>
+  <div class="demo-block">
+    <div style="padding:24px">
+        <slot name="source"></slot>
+    </div>
+    <div class="meta" ref="meta" v-show="isExpanded">
+      <div class="description" v-if="$slots.default">
+        <slot></slot>
+      </div>
+      <div class="highlight " v-highlight >
+        <slot name="highlight"></slot>
+      </div>
+    </div>
+    <div
+      class="demo-block-control"
+      ref="control"
+      @click="isExpanded = !isExpanded">
+      <i :class="[iconClass, { 'hovering': hovering }]"></i>
+      {{controlText}}
+    </div>
+  </div>
+</template>
+
+<style lang="scss">
+.demo-block-control{
+  -webkit-user-select: none;
+}
+  .demo-block {
+    border: solid 1px #ebebeb;
+    border-radius: 3px;
+    transition: .2s;
+    &.hover {
+      box-shadow: 0 0 8px 0 rgba(232, 237, 250, .6), 0 2px 4px 0 rgba(232, 237, 250, .5);
+    }
+
+    code {
+      font-family: Menlo, Monaco, Consolas, Courier, monospace;
+    }
+
+    .demo-button {
+      float: right;
+    }
+
+    .source {
+      padding: 24px;
+    }
+
+    .meta {
+      background-color: #fafafa;
+      border-top: solid 1px #eaeefb;
+    }
+
+    .description {
+      padding: 20px;
+      box-sizing: border-box;
+      border: solid 1px #ebebeb;
+      border-radius: 3px;
+      font-size: 14px;
+      line-height: 22px;
+      color: #666;
+      word-break: break-word;
+      margin: 10px;
+      background-color: #fff;
+
+      p {
+        margin: 0;
+        line-height: 26px;
+      }
+
+      code {
+        color: #5e6d82;
+        background-color: #e6effb;
+        margin: 0 4px;
+        display: inline-block;
+        padding: 1px 5px;
+        font-size: 12px;
+        border-radius: 3px;
+        height: 18px;
+        line-height: 18px;
+      }
+    }
+
+    .highlight {
+      pre {
+        margin: 0;
+      }
+
+      code.hljs {
+        margin: 0;
+        border: none;
+        max-height: none;
+        border-radius: 0;
+        line-height: 1.8;
+        color:black;
+        &::before {
+          content: none;
+        }
+      }
+    }
+
+    .demo-block-control {
+      border-top: solid 1px #eaeefb;
+      height: 44px;
+      box-sizing: border-box;
+      background-color: #fff;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      text-align: center;
+      margin-top: -1px;
+      color: #d3dce6;
+      cursor: pointer;
+      position: relative;
+
+      &.is-fixed {
+        position: fixed;
+        bottom: 0;
+        width: 868px;
+      }
+
+      i {
+        font-size: 16px;
+        line-height: 44px;
+        transition: .3s;
+        &.hovering {
+          transform: translateX(-40px);
+        }
+      }
+
+      > span {
+        position: absolute;
+        transform: translateX(-30px);
+        font-size: 14px;
+        line-height: 44px;
+        transition: .3s;
+        display: inline-block;
+      }
+
+      &:hover {
+        color: #409EFF;
+        background-color: #f9fafc;
+      }
+
+      & .text-slide-enter,
+      & .text-slide-leave-active {
+        opacity: 0;
+        transform: translateX(10px);
+      }
+
+      .control-button {
+        line-height: 26px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 14px;
+        padding-left: 5px;
+        padding-right: 25px;
+      }
+    }
+  }
+</style>
+
+<script type="text/babel">
+  export default {
+    data() {
+      return {
+        hovering: false,
+        isExpanded: false,
+        fixedControl: false,
+        scrollParent: null,
+        langConfig: {
+          "hide-text": "隐藏代码",
+          "show-text": "显示代码",
+        }
+      };
+    },
+    computed:{
+      iconClass() {
+        return this.isExpanded ? 'el-icon-caret-top' : 'el-icon-caret-bottom';
+      },
+      controlText() {
+        return this.isExpanded ? this.langConfig['hide-text'] : this.langConfig['show-text'];
+      },
+    }
+  };
+</script>
+```
+8. 编写对应的.md文件 docs/components/button.md
+```
+
+```

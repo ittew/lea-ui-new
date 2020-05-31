@@ -1,0 +1,23 @@
+{
+  "name": "vue-press",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "element-ui": "^2.13.2",
+    "highlight.js": "^10.0.3",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.2"
+  },
+  "devDependencies": {
+    "core-js": "^2.6.11",
+    "vuepress": "^1.5.0"
+  }
+}
