@@ -7,8 +7,10 @@ import 'highlight.js/styles/googlecode.css' //样式文件
 
 import Button from '../../../src/packages/Button'
 import Icon from '../../../src/packages/Icon'
+import ButtonGroup from '../../../src/packages/ButtonGroup'
 Vue.component(Button.name,Button)
 Vue.component(Icon.name,Icon)
+Vue.component(ButtonGroup.name,ButtonGroup)
 Vue.directive('highlight',function (el) {
   let blocks = el.querySelectorAll('pre code');
   blocks.forEach((block)=>{

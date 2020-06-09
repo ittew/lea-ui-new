@@ -12,6 +12,7 @@ module.exports = {
     // 为以下路由添加侧边栏
     sidebar: {
       '/components/': [{
+          title: 'Button 按钮',
           collapsable: true,
           children: ['button']
         }

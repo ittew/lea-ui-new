@@ -83,8 +83,9 @@ $active-color: #3a8ee6;
   &:focus,
   &:active{
     color:$active-color;
-    border:1px solid $active-color;
+    border:1px solid $active-color !important;
     background-color:$background;
+    z-index: 1;
   }
   @each $type,$color in(
     primary:$primary,
